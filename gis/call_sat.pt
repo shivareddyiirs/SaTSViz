@@ -1,0 +1,5 @@
+import os
+import subprocess
+sat_loc=os.getcwd()    
+path1=sat_loc+'\\SaTScan\\SaTScanBatch.exe'
+subprocess.call([path1,'C:\\Users\\smiley\\Desktop\\data\\sample_data\\nm.prm','-o','C:\\Users\\smiley\\Desktop\\data\\sample_data\\nm.out.txt'])
