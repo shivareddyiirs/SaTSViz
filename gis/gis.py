@@ -36,6 +36,7 @@ from gisdialog import *
 from ffdialog import *
 from jjdialog import *
 from parameter_file import *
+import os.path
 
 class gis:
 
@@ -43,7 +44,7 @@ class gis:
         # Save reference to the QGIS interface
         self.iface = iface
         # initialize plugin directory
-        self.plugin_dir = QFileInfo(QgsApplication.qgisUserDbFilePath()).path() + "/python/plugins/gis"
+        self.plugin_dir = os.path.dirname(__file__)
 ##        raise Exception(self.plugin_dir)
 		# initialize locale
         localePath = ""
