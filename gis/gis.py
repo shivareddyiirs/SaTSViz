@@ -36,6 +36,7 @@ from gisdialog import *
 from ffdialog import *
 from jjdialog import *
 from parameter_file import *
+import os.path
 
 class gis:
 
@@ -43,16 +44,15 @@ class gis:
         # Save reference to the QGIS interface
         self.iface = iface
         # initialize plugin directory
-        self.plugin_dir = QFileInfo(QgsApplication.qgisUserDbFilePath()).path() + "/python/plugins/gis"
+        self.plugin_dir = os.path.dirname(__file__)
 ##        raise Exception(self.plugin_dir)
 		# initialize locale
-        localePath = ""
-        locale = QSettings().value("locale/userLocale").toString()[0:2]
+	locale = QSettings().value("locale/userLocale")[0:2]
+        localePath = os.path.join(self.plugin_dir, 'i18n', 'SaTSViz_{}.qm'.format(locale))
+        
 
-        if QFileInfo(self.plugin_dir).exists():
-            localePath = self.plugin_dir + "/i18n/gis_" + locale + ".qm"
 
-        if QFileInfo(localePath).exists():
+        if os.path.exists(localePath):
             self.translator = QTranslator()
             self.translator.load(localePath)
 
@@ -72,7 +72,7 @@ class gis:
         # Create action that will start plugin configuration
         self.action = QAction(QIcon(":/plugins/gis/icon.png"),u"SaTSViz", self.iface.mainWindow())
         # connect the action to the run method
-        QObject.connect(self.action, SIGNAL("triggered()"), self.run)
+        self.action.triggered.connect(self.run)
 
         # Add toolbar button and menu item
         self.iface.addToolBarIcon(self.action)
@@ -85,7 +85,7 @@ class gis:
 
     # run method that performs all the real work
     def run(self):
-	QObject.connect(self.dlg.ui.buttonBox, SIGNAL("helpRequested()"), self.show_help)
+	#QObject.connect(self.dlg.ui.buttonBox, SIGNAL("helpRequested()"), self.show_help)
 ##	self.dlg.ui.webView.setUrl(QUrl("file:///%s/help.html" % self.plugin_builder_dir))
         # show the dialog
         self.dlg.show()
