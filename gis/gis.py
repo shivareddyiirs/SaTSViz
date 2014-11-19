@@ -96,7 +96,9 @@ class gis:
             # do something useful (delete the line containing pass and
             # substitute with your code)
             # creating case file ,control file ,geo file and population file
-            self.dlg.apple()
+            status= self.dlg.apple()
+            if status == "noFile":
+                return 
             #show the dailog
             self.dlgf.show()
             #run the dialog event loop

@@ -88,7 +88,7 @@ class ffDialog(QtGui.QDialog):
 
     def sscan(self):
         self.fi= QFileDialog.getOpenFileName(self, "Output map",".", "ESRI Shapefile (*.exe)")
-	self.ui.lineEdit_4.setText(str(self.fi))		
+	self.ui.lineEdit_4.setText(self.fi)		
 
     def ana_mod(self):
         if self.ui.radioButton_2.isChecked() or self.ui.radioButton_5.isChecked():
