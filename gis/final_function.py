@@ -15,6 +15,8 @@ import shutil
 def reading(arg1,arg2,arg3,arg4,arg5):
 
 ## Isolate file path and file name
+    if arg1 is None:
+        return "noFile"
     path=arg1
     path=path.split('/')
     fname=path.pop()
@@ -28,7 +30,10 @@ def reading(arg1,arg2,arg3,arg4,arg5):
 ## Read the shapefile
     read = shapefile.Reader(arg1)
     file_fields=read.fields
-    pts=read.shapes()
+    try :
+        pts=read.shapes()
+    except:
+        return "noFile" # need to write code to handle the shapefile exception when there is no file selected by user
     date='NONE'
     p_or_c='NONE'
     

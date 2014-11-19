@@ -54,10 +54,10 @@ class gisDialog(QtGui.QDialog):
             	
     def outFile(self):
 		self.outvLayer = QFileDialog.getOpenFileName(self,"Open File",".","ESRI Shapefile (*.shp)")
-		if not self.outvLayer.isEmpty():
-                    v=self.ui.comboBox_6.findText(str(self.outvLayer))
+		if not self.outvLayer :
+                    v=self.ui.comboBox_6.findText(self.outvLayer)
                     if v<0:
-                        self.ui.comboBox_6.addItem(str(self.outvLayer))
+                        self.ui.comboBox_6.addItem(self.outvLayer)
                         #ind=self.ui.comboBox_6.currentIndex()+1
                         #self.ui.comboBox_6.setCurrentIndex(ind)
 		            
@@ -90,7 +90,12 @@ class gisDialog(QtGui.QDialog):
 			
 
     def apple(self):
-        reading(str(self.ui.comboBox_6.currentText()),str(self.ui.comboBox_4.currentText()),str(self.ui.comboBox_2.currentText()),"CASE",str(self.ui.comboBox.currentText()))
-        reading(str(self.ui.comboBox_6.currentText()),str(self.ui.comboBox_4.currentText()),str(self.ui.comboBox_3.currentText()),"CONTROL",str(self.ui.comboBox.currentText()))
-        reading(str(self.ui.comboBox_6.currentText()),str(self.ui.comboBox_4.currentText()),str(self.ui.comboBox_5.currentText()),"POPULATION",str(self.ui.comboBox.currentText()))
-        
+        status = reading(str(self.ui.comboBox_6.currentText()),str(self.ui.comboBox_4.currentText()),str(self.ui.comboBox_2.currentText()),"CASE",str(self.ui.comboBox.currentText()))
+        if status == "noFile" :
+            return "noFile"
+        status = reading(str(self.ui.comboBox_6.currentText()),str(self.ui.comboBox_4.currentText()),str(self.ui.comboBox_3.currentText()),"CONTROL",str(self.ui.comboBox.currentText()))
+        if status == "noFile" :
+            return "noFile"
+        status = reading(str(self.ui.comboBox_6.currentText()),str(self.ui.comboBox_4.currentText()),str(self.ui.comboBox_5.currentText()),"POPULATION",str(self.ui.comboBox.currentText()))
+        if status == "noFile":
+            return "noFile"
